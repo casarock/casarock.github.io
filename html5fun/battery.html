@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>Energy! (FireFox...)</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" id="batinfo">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="ambilight.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function() {
+        var bat = getBatteryInfo(),
+                text = "",
+                charging = bat.charging ? "" : " not";
+
+        text += "<p>Your Battery is" + charging + " charging.</p>";
+        text += "<p>estimated discharging time is " + bat.dischargingTime/60 + "h";
+        text += "<p>and your battery level is: " + bat.level + "%";
+
+        $('#batinfo').html(text);
+    });
+
+    function getBatteryInfo() {
+        var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery,
+                info = {
+                    charging:        battery.charging,
+                    chargingTime:    parseInt(battery.chargingTime / 60, 10),
+                    dischargingTime: parseInt(battery.dischargingTime / 60, 10),
+                    level:           Math.round(battery.level * 100)
+                };
+
+        return info;
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>Image manipulation</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="pxl" style="width: 640px; height: 480px; background-color:black;" width="640" height="480"></canvas>
+        </div>
+    </div><div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <input type="range" min="1" max="100" value="1" id="factor">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="canvas_game.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    var ctx = document.getElementById('pxl').getContext('2d'),
+        img = new Image,
+        value = factor.value;
+
+    img.onload = pixelate;
+    img.src = 'images/Mercedes-Benz-C-Class.jpg';
+
+    function pixelate() {
+
+        /// calculate the factor
+        var fw = (img.width / value) | 0,
+            fh = (img.height / value) | 0;
+
+        /// turn off image smoothing (prefixed in some browsers)
+        ctx.imageSmoothingEnabled =
+        ctx.mozImageSmoothingEnabled =
+        ctx.msImageSmoothingEnabled =
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0, fw, fh);
+        ctx.drawImage(pxl, 0, 0, fw, fh, 0, 0, img.width, img.height);
+    }
+
+    /// for demo, use slider to change pixelation
+    factor.onchange = function () {
+        value = factor.value;
+        pixelate();
+    };
+
+</script>
+
+</body>
+
+</html>

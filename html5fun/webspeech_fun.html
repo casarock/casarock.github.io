@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>Filter, Filter!!</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            Hi Mediaman!<br>
+            How are you?
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <button id="snap">Talk to me!</button>
+            <button id="whisper">Ssshh.. silent!</button>
+            <button id="german">Red' mit mir!</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="webgl_demo.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#snap').on('click', function() {
+            var msg = new SpeechSynthesisUtterance('Hi Mediaman! How are you?');
+            msg.onstart = function() {
+
+            };
+            msg.onend = function() {
+
+            };
+            window.speechSynthesis.speak(msg);
+        });
+
+        $('#whisper').on('click', function() {
+            var msg = new SpeechSynthesisUtterance('I see dead people!');
+            msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == 'Whisper'; })[0];
+
+            msg.onstart = function() {
+
+            };
+            msg.onend = function() {
+
+            };
+
+            speechSynthesis.speak(msg);
+        });
+
+        $('#german').on('click', function() {
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = "Ich kann auch deutsch sprechen.";
+            utterance.lang = "de-DE";
+            utterance.rate = 1;
+            utterance.pitch = 1;
+
+            utterance.onstart = function() {
+
+            };
+            utterance.onend = function() {
+
+            };
+
+            window.speechSynthesis.speak(utterance);
+
+
+        });
+
+    });
+</script>
+</body>
+
+</html>

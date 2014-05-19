@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>Talk to me.</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div id="transcript" style="height: 150px; border: 1px solid yellow;"></div>
+        </div>
+        <div class="col-md-5">
+            <div id="final" style="height: 150px; border: 1px solid green;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <button id="snap">Talk to me!</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="vibration.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        var finalTranscript = '';
+        var recognizing = false;
+
+        $(document).ready(function() {
+
+            // check that your browser supports the API
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Sorry, your Browser does not support the Speech API");
+
+            } else {
+                // Create the recognition object and define the event handlers
+
+                var recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;         // keep processing input until stopped
+                recognition.interimResults = true;     // show interim results
+                recognition.lang = 'de-DE';           // specify the language
+
+                recognition.onstart = function() {
+                    recognizing = true;
+                    $('#snap').html('Stop');
+                };
+
+                recognition.onerror = function(event) {
+                    console.log("There was a recognition error...");
+                };
+
+                recognition.onend = function() {
+                    recognizing = false;
+                };
+
+                recognition.onresult = function(event) {
+                    var interimTranscript = '';
+
+                    // Assemble the transcript from the array of results
+                    for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            finalTranscript += event.results[i][0].transcript;
+                            $('#final').html(finalTranscript);
+                        } else {
+                            interimTranscript += event.results[i][0].transcript;
+                        }
+                    }
+
+                    $('#transcript').html(interimTranscript);
+                };
+
+                $("#snap").click(function(e) {
+                    e.preventDefault();
+
+                    if (recognizing) {
+                        recognition.stop();
+                        $('#snap').html('Start');
+                        recognizing = false;
+                        $('#final').html(finalTranscript);
+                    } else {
+                        finalTranscript = '';
+                        // Request access to the User's microphone and Start recognizing voice input
+                        recognition.start();
+                        $('#snap').html('waiting');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>3D!</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" id="results">
+            Firefox required! ;)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="ambiFun/ambient.html">Da geht noch mehr...</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="manipulate_webcam.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    function activateAmbientLightEvent() {
+        var resElement = document.querySelector("#results");
+        window.ondevicelight = function (event) {
+            // Read out the lux value
+            var lux = event.value;
+            resElement.innerHTML = "Lux: " + lux;
+        };
+    }
+
+    activateAmbientLightEvent();
+</script>
+</body>
+
+</html>

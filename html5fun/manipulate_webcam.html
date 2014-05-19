@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fun with HTML5!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Full' Template -->
+    <link href="css/full.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Fun!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page content goes here -->
+<div class="container whitetransparent" style="margin-top: 135px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"><h1>Filter, Filter!!</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <video id="video" width="320" height="240" autoplay></video>
+        </div>
+        <div class="col-md-6">
+            <canvas id="canvas" width="320" height="240"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <button id="snap">Grey!</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="webspeech_1.html">Next, please!</a>
+        </div>
+    </div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        // Grab elements, create settings, etc.
+        var canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d"),
+                video = document.getElementById("video"),
+                videoObj = { "video": true },
+                errBack = function (error) {
+                    console.log("Video capture error: ", error.code);
+                },
+                isStreaming = false,
+                greyscale = false;
+
+        // Put video listeners into place
+        if (navigator.getUserMedia) { // Standard
+            navigator.getUserMedia(videoObj, function (stream) {
+                video.src = stream;
+                video.play();
+            }, errBack);
+        } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+            navigator.webkitGetUserMedia(videoObj, function (stream) {
+                video.src = window.webkitURL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        }
+        else if (navigator.mozGetUserMedia) { // Firefox-prefixed
+            navigator.mozGetUserMedia(videoObj, function (stream) {
+                video.src = window.URL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        }
+
+        video.addEventListener('canplay', function(e) {
+            if (!isStreaming) {
+                canvas.setAttribute('width', 320);
+                canvas.setAttribute('height', 240);
+                // Reverse the canvas image
+                context.translate(320, 0);
+                context.scale(-1, 1);
+                isStreaming = true;
+            }
+        }, false);
+
+        video.addEventListener('play', function() {
+            setInterval(function() {
+                if (video.paused || video.ended) return;
+                context.fillRect(0, 0, 320, 240);
+                context.drawImage(video, 0, 0, 320, 240);
+                if (greyscale) goingGrey();
+            }, 33);
+        }, false);
+
+        document.getElementById("snap").addEventListener('click', function() { greyscale = !greyscale; }, false);
+
+        var goingGrey = function() {
+            var imageData = context.getImageData(0, 0, 320, 240),
+                    data = imageData.data;
+
+            for (var i = 0; i < data.length; i += 4) {
+                var bright = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+                data[i] = bright;
+                data[i + 1] = bright;
+                data[i + 2] = bright;
+            }
+
+            context.putImageData(imageData, 0, 0);
+        }
+    });
+</script>
+</body>
+
+</html>
