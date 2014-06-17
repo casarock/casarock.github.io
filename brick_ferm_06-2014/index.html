@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Rapid Prototyping App with Brick!</title>
+
+    <meta name="description" content="Use Brick to build html5 mobile Apps quickly!">
+    <meta name="author" content="Carsten Sandtner">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/brick.min.css">
+    <link rel="stylesheet" href="lib/css/style.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="lib/js/brick.min.js"></script>
+    <style>
+        .txtshadow {
+            color:white!important;
+            text-shadow: 0 -1px #000, 1px 0 #000, 0 1px #000, -1px 0 #000!important;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section id="title" data-background="images/bricks_lego.jpg">
+            <h1 class="txtshadow">Look mom, I've bricked my mobile (web)</h1>
+
+            <h3 class="txtshadow">UI Components for Modern Web Apps</h3>
+
+            <p class="txtshadow">
+                <small>Carsten Sandtner (@casarock) - Frontend Rhein-Main 06/2014</small>
+            </p>
+        </section>
+        <section id="whoami">
+            <h2>Who am I?</h2>
+
+            <p>
+                Carsten Sandtner // <span class="grow">@casarock</span><br>
+                Head of Development at //mediaman GmbH<br/>
+                Mozilla rep<br/>
+
+            </p>
+        </section>
+        <section id="webcomponents">
+            <h2>Web Components</h2>
+            <ul class="fragment">
+                <li>Templates</li>
+                <li>Custom Elements</li>
+                <li>HTML Import</li>
+                <li class="fragment semi-fade-out">Shadow Dom, <br>... and more ...</li>
+            </ul>
+            <small>A very short and brief look!</small>
+        </section>
+
+        <section id="templates">
+            <h2>Templates: Now</h2>
+            <div class="fragment">
+            <pre><code data-trim contenteditable>
+&lt;script type="text/x-template"&gt;
+    &lt;div&gt;Mycontent!&lt;/div&gt;
+&lt;/script&gt;
+            </code></pre>
+            <p>or</p>
+            <pre><code data-trim contenteditable>
+&lt;div style="display:none"&gt;
+    Here be content
+&lt;/div&gt;
+            </code></pre>
+            </div>
+            <aside class="notes">
+                Disadvantage: Will be parsed and executed!
+            </aside>
+        </section>
+        <section id="templates-future">
+            <h2>Templates: Future</h2>
+
+            <pre class="fragment"><code data-trim contenteditable>
+&lt;template&gt;
+    &lt;div&gt;&lt;p&gt;whoop whoop&lt;/p&gt;&lt;/div&gt;
+&lt;/template&gt;
+            </code></pre>
+            <aside class="notes">
+                Will be parsed but not executed!
+            </aside>
+        </section>
+
+            <section id="templates-example">
+            <h2>Templates: Example</h2>
+            <pre><code data-trim contenteditable>
+&lt;template id="my-template"&gt;
+    &lt;div&gt;Awesome Template Text&lt;/div&gt;
+&lt;/template&gt;
+            </code></pre>
+            <pre><code>
+var t = document.getElementById('my-template');
+document.body.appendChild(t.content.cloneNode());
+            </code></pre>
+            <aside class="notes">
+                Select your Template. Access with 'content' and clone to use.
+            </aside>
+        </section>
+        
+        <section id="custom-elements">
+            <h2>Custom Elements: create an Element</h2>
+
+            <div class="fragment"><pre><code data-trim contenteditable>
+var myElement = document.registerElement('awesome-element');
+// or document.createElement(..)
+            </code></pre>
+            <pre><code data-trim contenteditable>
+&lt;awesome-element&gt;&lt;/awesome-element&gt;
+            </code></pre>
+            </div>
+        </section>
+        <section id="custom-elements-why">
+            <h2>Why Customs Elements?</h2>
+            <p class="fragment">Because everything is an element!</p>
+            <ul class="fragment">
+                <li>Accordeons</li>
+                <li>Carousels</li>
+                <li>Sliders</li>
+                <li>...</li>
+            </ul>
+        </section>
+        <section id="custom-elements-why-2">
+            <h2>Example: I want a Carousel</h2>
+            <img class="fragment" width="500" src="images/google_carousel.png" alt="">
+
+        </section>
+        <section id="cutom-elements-reason">
+            <h2>Example: I want a Carousel</h2>
+            <p>Wouldn't it be cool if...</p>
+            <pre class="fragment"><code data-trim contenteditable>
+&lt;my-carousel id="myid"&gt;
+    &lt;div&gt;Slide 1&lt;/div&gt;
+    &lt;div&gt;Slide 2&lt;/div&gt;
+    ...
+&lt;/my-carousel&gt;
+            </code></pre>
+            <p class="fragment">Indeed - But logic??</p>
+            <aside class="notes">
+
+            </aside>
+        </section>
+        <section id="custom-element-logic">
+            <h2>Example: How about logic?</h2>
+            <pre class="fragment"><code data-trim contenteditable>
+var myAwesomeCarousel = Object.create(HTMLElement.prototype);
+myAwesomeCarousel.next = function() {
+    // Code...
+};
+myAwesomeCarousel.previous = function() {
+    // Code...
+};
+
+// Register carousel element with its default prototype
+var MyCarousel = document.registerElement('my-carousel', {
+    prototype: myAwesomeCarousel
+});
+
+// Instantiate a carousel and add to dom.
+var myCarousel = document.createElement('my-carousel');
+document.body.appendChild(myCarousel);
+
+            </code></pre>
+        </section>
+        <section id="htmlimports">
+            <h2>HTML Imports</h2>
+            <p>We want to reuse our Custom Elements (and more...), right?</p>
+            <pre class="fragment"><code data-trim contenteditable>
+&lt;link rel="import" href="plugin.html"&gt;
+            </code></pre>
+            <ul class="fragment">
+                <li>Includes all data for an element: Templates, scripts etc.</li>
+                <li>Is NOT(!) been rendered!</li>
+                <li>Dom property 'import' for accessing elements</li>
+                <li>Use standard query selectors for imported fragments</li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable>
+var link = document.querySelector('link[rel="import"]');
+var content = link.import;
+var el = content.querySelector('.someclass');
+
+document.body.appendChild(el.cloneNode(true));
+            </code></pre>
+            <aside class="notes">
+                Import HTML (parts) and use f. e. custom Elements.
+            </aside>
+        </section>
+        <section id="why-components">
+            <h2>Why should I use Web Components?</h2>
+            <ul class="fragment">
+                <li>Encapsulation</li>
+                <li>Reusability</li>
+                <li>Robustness</li>
+                <li>Expressiveness</li>
+            </ul>
+        </section>
+        <section id="want" data-background="images/want_this.gif">
+        </section>
+        <section id="polymer-vs-x-tags" data-background="images/polymer_vs_xtags.jpg">
+            <h2 class="txtshadow">Polymer vs. X-Tags!</h2>
+        </section>
+        <section id="polymer">
+            <h2>Polymer - by Google</h2>
+            <img src="images/polymer.png" style="border:0; box-shadow: none;"><br>
+            <a href="http://www.polymer-project.org/">http://www.polymer-project.org/</a>
+            <aside class="notes">
+                Polymer is a library that uses the latest web technologies to let you create custom HTML elements.
+            </aside>
+        </section>
+
+        <section id="x-tags">
+            <h2>X-Tags - by Mozilla</h2>
+            <br>
+            <br>
+            <div style="font-size: 300%">
+                &lt;X&gt;
+            </div>
+            <br>
+            <a href="http://x-tags.org/">http://x-tags.org/</a>
+            <aside class="notes">
+                X-Tag is a small JavaScript library, created and supported by Mozilla, that brings
+                Web Components Custom Element capabilities to all modern browsers.
+            </aside>
+        </section>
+        <section id="winner">
+            <h2>Who wins?</h2>
+            <img width="500" src="images/web_components.png" class="fragment" style="border:0; box-shadow: none;">
+            <aside class="notes">
+                Noone! Both share the same polyfills and both are built to bring the web forward!
+                Intention is to polyfill missing features until standards have been implemented by browser
+                vendors!
+            </aside>
+        </section>
+        <section id="ui-framework" data-background="images/brick_framework.jpg">
+            <h2 class="txtshadow fragment">and here comes BRICK!</h2>
+            <aside class="notes">
+                Wouldn't a framework build on top of one libraray cool?
+            </aside>
+        </section>
+        <section id="whats-brick">
+            <blockquote>
+                &ldquo;Brick is a bundle of reusable UI components created to enable rapid development
+                of cross-browser and mobile-friendly HTML5 web applications.&rdquo;
+            </blockquote>
+            <aside class="notes">
+                Brick is maintained by Mozilla
+            </aside>
+        </section>
+        <section id="brick-includes">
+            <h2>Components included in Brick</h2>
+            <ul class="inline fragment">
+                <li>appbar</li>
+                <li>calendar</li>
+                <li>deck</li>
+                <li>flipbox</li>
+                <li>layout</li>
+                <li>slider</li>
+                <li>tabbar</li>
+                <li>toggle</li>
+            </ul>
+            <br><br>
+            <p class="fragment">And could be extended by own components</p>
+            <aside class="notes">
+                And all Components are ready to use and basically just x-tag components.
+            </aside>
+        </section>
+
+
+        
+        <section id="demo">
+            <h2>Demo: Calender</h2>
+
+            <div class="fragment">
+                <x-calendar id="custom-style-cal"></x-calendar>
+            </div>
+            <pre><code data-trim contenteditable>
+&lt;x-calendar&gt;&lt;/x-calendar&gt;
+            </code></pre>
+
+            <aside class="notes">
+
+            </aside>
+            <style>
+                #custom-style-cal{
+                    font-size: 14px;
+                }
+            </style>
+        </section>
+        <section id="more">
+            <h2>Flipbox</h2>
+            <div class="fragment" id="toggleflipbox">
+                <x-flipbox id="flipbox-custom">
+                    <img width="208" height="303" src="images/Card_back.png">
+                    <img width="208" height="303" src="images/Card_front.png">
+                </x-flipbox>
+            </div>
+            <pre><code data-trim contenteditable>
+&lt;x-flipbox id="flipbox-custom"&gt;
+    &lt;img width="208" height="303" src="images/Card_back.png"&gt;
+    &lt;img width="208" height="303" src="images/Card_front.png"&gt;
+&lt;/x-flipbox&gt;
+            </code></pre>
+            <pre><code data-trim contenteditable>
+myflipBox.addEventListener("click", function(){
+    flipBox.toggle();
+});
+            </code></pre>
+            <style>
+                #flipbox-custom {
+                    width:208px;
+                    height: 303px;
+                    margin: 0 auto;
+                }
+            </style>
+        </section>
+        <section id="complex-demo">
+            <h2>More fun with Layout, Decks, cards and Tabbar!</h2>
+            <pre><code data-trim contenteditable>
+&lt;x-layout&gt;
+    &lt;x-appbar&gt;&lt;h2&gt;Super awesome headline!&lt;/h2&gt;&lt;/x-appbar&gt;
+    &lt;x-deck selected-index="0"&gt;
+        &lt;x-card id="card1"&gt;
+            I'm Card 1!
+        &lt;/x-card&gt;
+        &lt;x-card id="card2"&gt;
+            I'm Card 2!
+        &lt;/x-card&gt;
+    &lt;/x-deck&gt;
+    &lt;x-tabbar&gt;
+        &lt;x-tabbar-tab target-selector="#card1"&gt;1&lt;/x-tabbar-tab&gt;
+        &lt;x-tabbar-tab target-selector="#card2"&gt;2&lt;/x-tabbar-tab&gt;
+    &lt;/x-tabbar&gt;
+&lt;/x-layout&gt;
+            </code></pre>
+        </section>
+        <section id="complex-demo-2">
+            <h2>More fun with Layout, Decks, cards and Tabbar! - cont.</h2>
+            <div style="width:320px; height:480px; margin: 0 auto;">
+                <iframe src="demo/tabview.html" width="100%" height="100%"></iframe>
+            </div>
+            <aside class="notes">
+
+            </aside>
+        </section>
+
+        <section id="and-more">
+            <h2>... and there is more (build in) ...</h2>
+            <div style="width:95%; height:500px; margin: 0 auto;">
+                <iframe src="http://mozilla.github.io/brick/docs.html" width="100%" height="100%"></iframe>
+            </div>
+            <p>
+                <a href="http://mozilla.github.io/brick/docs.html">http://mozilla.github.io/brick/docs.html</a>
+            </p>
+        </section>
+        <section id="and-even-more">
+            <h2>.. and even more. Or build your own ...</h2>
+
+            <div class="fragment">
+                <p>
+                    .. Bricks!
+                </p>
+                <p class="fragment">Later!</p>
+            </div>
+        </section>
+        <section id="how-to-use">
+            <h2>How to use</h2>
+            <p class="fragment">Download Brick: <a href="https://github.com/mozilla/brick/">https://github.com/mozilla/brick/</a></p>
+            <div class="fragment">
+            <p>Add CSS and JS to your project</p>
+            <pre><code data-trim contenteditable>
+...
+&lt;link rel="stylesheet" href="../lib/css/brick.min.css"&gt;
+...
+            </code></pre>
+            <pre><code data-trim contenteditable>
+...
+&lt;script src="../lib/js/brick.min.js"&gt;&lt;/script&gt;
+...
+            </code></pre>
+            </div>
+        </section>
+
+        <section id="build-your-bricks">
+            <h2>What about own bricks?</h2>
+            <p class="fragment">Step 1: Register your Brick</p>
+            <pre class="fragment"><code data-trim contenteditable>
+(function() {
+    xtag.register('my-brick', {
+        lifecycle: {
+            created: function() {
+                this.innerHTML = 'I am a brick';
+            }
+        }
+    });
+})();
+            </code></pre>
+        </section>
+        <section id="build-your-bricks-2">
+            <h2>What about own bricks?</h2>
+            <p class="fragment">Step 2: Add events and methods to your Brick</p>
+            <pre class="fragment"><code data-trim contenteditable>
+(function() {
+    xtag.register('my-brick', {
+        // ...
+        events: {
+            'tap': function(e) {
+                this.style.backgroundColor =
+                  '#' + Math.round(0xFFFFFF * Math.random())
+                  .toString(16);
+             }
+        },
+        methods: {
+            colorful: function() {
+                this.style.backgroundColor =
+                  '#' + Math.round(0xFFFFFF * Math.random())
+                  .toString(16);
+            }
+        }
+    });
+})();
+            </code></pre>
+            <p class="fragment">Your very own brick!</p>
+        </section>
+        <section id="build-your-bricks-demo">
+            <h2>My Brick!</h2>
+            <p>The result</p>
+            <my-brick id="mybrick"></my-brick>
+            <style>
+                my-brick {
+                    border: 3px solid #ccc;
+                    background: #800;
+                    display: inline-block;
+                    color: #eee;
+                    padding: 0.5rem;
+                    /* we don't want to select the text inside the 'brick' when clicking to change the colour */
+                    -moz-user-select: none;
+                    user-select: none;
+                }
+            </style>
+        </section>
+        <section id="mortar" data-background="images/brick_and_mortar.jpg">
+            <h2 class="txtshadow fragment">Mortar</h2>
+        </section>
+        <section id="mortar-2">
+            <h2>Mozilla mortar</h2>
+            <p class="fragment">A collection of templates to kickstart app development</p>
+            <ul class="fragment">
+                <li>app stub</li>
+                <li>privileged app stub</li>
+                <li>game stub</li>
+                <li>list-detail stub</li>
+                <li>tabview stub</li>
+                <li class="fragment">template-template</li>
+            </ul>
+            <p><a class="fragment" href="https://github.com/mozilla/mortar">https://github.com/mozilla/mortar</a></p>
+        </section>
+        <section id="start-stacking">
+            <h2>Start stacking!</h2>
+            <p>
+                Go, stack your App. Now! ;)
+            </p>
+            <img width="300" src="images/lego_stack.jpg" alt="">
+            <p class="fragment">
+                Mozilla delivers the bricks ... <span class="fragment">... and mortar</span>
+            </p>
+        </section>
+        <section id="thank-you">
+            <h2>Thank you!</h2>
+            <p>
+                Carsten Sandtner<br>
+                <a href="http://www.twitter.com/casarock">@casarock</a><br>
+            </p>
+
+        </section>
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+
+<script>
+
+    document.addEventListener('DOMComponentsLoaded', function(){
+        var myflipBox = document.getElementById('toggleflipbox'),
+            flipBox = document.getElementById('flipbox-custom');
+
+        myflipBox.addEventListener("click", function(){
+            flipBox.toggle();
+        });
+
+        (function() {
+            xtag.register('my-brick', {
+                lifecycle: {
+                    created: function() {
+                        this.innerHTML = 'I am a brick';
+                    }
+                },
+                events: {
+                    tap: function(e) {
+                        this.style.background = '#' + Math.round(0xFFFFFF * Math.random()).toString(16);
+                    }
+                },
+                methods: {
+                    colorful: function() {
+                        this.style.backgroundColor =
+                                '#' + Math.round(0xFFFFFF * Math.random())
+                                .toString(16);
+                    },
+                    beccapurple: function() {
+                        this.style.backgroundColor = '#663399';
+                    }
+                }
+            });
+
+            window.myBrick = document.getElementById('mybrick');
+        })();
+
+        window.calendar = document.getElementById('custom-style-cal');
+    });
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'solarized',
+        transition: 'linear',
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+        ]
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html style="height:100%">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/css/brick.min.css">
+</head>
+<body style="height:100%; margin:0; background-color: #fff;">
+    <x-layout id="mylayout">
+        <x-appbar><h4>Super awesome headline!</h4></x-appbar>
+        <x-deck selected-index="0" id="mydeck">
+            <x-card id="mycard1">
+                I'm Card 1!
+            </x-card>
+            <x-card id="mycard2">
+                I'm Card 2!
+            </x-card>
+        </x-deck>
+        <x-tabbar>
+            <x-tabbar-tab target-selector="#mycard1">1</x-tabbar-tab>
+            <x-tabbar-tab target-selector="#mydeck x-card:nth-child(2)">2</x-tabbar-tab>
+        </x-tabbar>
+    </x-layout>
+    <script src="../lib/js/brick.min.js"></script>
+</body>
+</html>
