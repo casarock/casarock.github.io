@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>x-video - X-Tag</title>
+
+    <link rel="stylesheet" type="text/css" href="x-tag-components.css"/>
+    <link rel="stylesheet" type="text/css" href="../src/camera.css"/>
+
+    <script type="text/javascript" src="x-tag-components.js"></script>
+    <script type="text/javascript" src="../src/camera.js"></script>
+</head>
+
+<body id="app">
+
+<x-camera videowidth="480" videoheight="320" video="hidden"></x-camera>
+<canvas width="480" height="320" id="renderCanvas"></canvas>
+<button disabled id="start">Pause</button>
+</body>
+
+<script type="text/javascript">
+
+    window.requestAnimationFrame = window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+
+    window.cancelRequestAnimationFrame = window.cancelAnimationFrame ||
+            window.webkitCancelRequestAnimationFrame ||
+            window.mozCancelRequestAnimationFrame ||
+            window.oCancelRequestAnimationFrame ||
+            window.msCancelRequestAnimationFrame;
+
+    // Wait for x-tag to be ready
+    document.addEventListener('DOMComponentsLoaded', function () {
+
+        var canvas = document.querySelector('#renderCanvas');
+        var playButton = document.querySelector('#start');
+        var ctx = canvas.getContext('2d');
+        var animFrameId, streaming = true;
+        var myVideo = document.querySelector('x-camera'); // Or use an id.
+        var videoCanvas = myVideo.videoCanvas;
+
+        // Wait for videostream to be ready to play
+        myVideo.addEventListener('canplay', function() {
+            playButton.disabled = false;
+
+            // Start Renderloop!
+            // Firefox fires canplay event but video is not available.
+            // This causes an NS_ERROR_NOT_AVAILABLE Error.
+            // Wait a second at press "play" button
+            draw();
+        });
+
+        // Pause/Play Button.
+        playButton.addEventListener('click', function() {
+            if (!streaming) {
+                myVideo.play();
+
+                // Start render loop
+                draw();
+                playButton.innerHTML = "Pause";
+                streaming = true;
+            } else {
+                // Stop streaming
+                myVideo.pause();
+
+                // Stop drawing videostream (performance!)
+                window.cancelRequestAnimationFrame(animFrameId);
+                playButton.innerHTML = "Play";
+                streaming = false;
+            }
+        });
+
+        // Render loop: draws video stream to canvas.
+        function draw() {
+            ctx.drawImage(videoCanvas, 0, 0, 480, 320);
+            animFrameId = window.requestAnimationFrame(draw);
+        }
+
+    });
+
+</script>
+
+</html>
