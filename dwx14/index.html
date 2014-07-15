@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Firefox OS - a (mobile) web developers dream</title>
+
+		<meta name="description" content="Firefox OS - a (mobile) web developers dream">
+		<meta name="author" content="Carsten Sandtner">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/style.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .txtshadow {
+                color:white!important;
+                text-shadow:  2px  2px 2px black,
+                              2px -2px 2px black,
+                             -2px  2px 2px black,
+                             -2px -2px 2px black!important;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section id="title">
+                    <h1>Firefox OS</h1>
+                    <h3>a (mobile) web developers dream</h3>
+                    <img src="images/firefoxos.png" width="300">
+                    <p>
+                        <small>Carsten Sandtner (<a href="http://www.titter.com/casarock">@casarock</a>) 2014 - DWX 2014</small>
+                    </p>
+                </section>
+
+                <section id="whoami">
+                    <h2>Who am I?</h2>
+
+                    <p>
+                        Carsten Sandtner<br>
+                        Head of Development at //mediaman GmbH<br/>
+                        Mozilla representative<br/>
+                        <br>
+                        Javascript enthusiast and web developer since 1998.
+                    </p>
+                </section>
+                <section id="html5OS">
+                    <h2>HTML5 based <br>Operating Systems</h2>
+                    <blockquote class="fragment">
+                        The full Safari engine is inside of iPhone. And so, you can write amazing Web 2.0 and Ajax apps
+                        that look exactly and behave exactly like apps on the iPhone. And these apps can integrate
+                        perfectly with iPhone services. They can make a call, they can send an email, they can look
+                        up a location on Google Maps. And guess what? There’s no SDK that you need!
+                    </blockquote>
+                    <aside class="notes">
+                        <p>Steve Jobs 2007</p>
+                        The Idea of HTML5 based operating systems is not new. There were several other.
+                        Let's take a look at some of them.
+                    </aside>
+                </section>
+                <section id="webos" data-background="images/palm_pre.jpg">
+                    <h2 class="txtshadow">WebOS</h2>
+
+                    <aside class="notes">
+                        <ul>
+                            <li>Launched 2009</li>
+                            <li>HTML5 Apps</li>
+                            <li>First HTML5 based (mobile) OS</li>
+                            <li>Enyo Framework still alive</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="chromeos" data-background="images/chrome_os.png">
+                    <h2 class="txtshadow">Chrome OS</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li>Launched 2009: Desktop only!</li>
+                            <li>The browser is the OS (at least UI)</li>
+                            <li>Still alive. Chromebooks are available</li>
+                            <li>NaCL Apps could be used, too</li>
+                            <li>I/O 2014 announced: Android and Chrome OS getting closer</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="firefoxos" data-background="images/Firefox_OS.jpg">
+                    <aside class="notes">
+                        <ul>
+                            <li>First version released 2011</li>
+                            <li>For smartphones and tablets</li>
+                            <li>Completely HTML5 based</li>
+                            <li>the only fully open mobile operating system based on web standards</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="ffdetails" data-background="images/Firefox_OS.jpg">
+                    <h2>&nbsp;</h2>
+                    <h3 style="margin-left:350px; margin-top:75px;">in detail</h3>
+
+                    <aside class="notes">
+                        Let's take a look at Firefox OS and it's architecture.
+                    </aside>
+                </section>
+                <section id="architecture">
+                    <h2>Architecture</h2>
+                </section>
+                <section id="architecture-2" data-background="images/Firefox_Layers.jpg">
+                    <aside class="notes">
+                        <p>This is a quick overview what the different layers are.</p>
+                        <p>Let's have a detailed look.</p>
+                    </aside>
+                </section>
+                <section id="architecture-3">
+                    <img src="images/ffos_arch.png" style="width:80%;" alt="Firefox Architecture">
+                    <aside class="notes">
+                        <ul>
+                            <li>Gecko lays directly above a linux layer (Gonk)</li>
+                            <li>On top of platform are Apps - 3rd Party and System apps.</li>
+                            <li>Access to Hardware features is provided by WebAPIs</li>
+                            <li>Access to sensible data (Contacts, phone etc.) is provided by Web Activities</li>
+                            <li>GAIA is the UI Layer (HTML5). On top of Gaia is every App!</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="arch-gonk" data-background="#307eae">
+                    <h2>Gonk</h2>
+
+                    <p>Low level OS of Firefox OS. Linux - based on Android Open Source Project</p>
+
+                    <aside class="notes">
+                        <ul>
+                            <li>lower level operating system of the Firefox OS</li>
+                            <li>Linux kernel (based on the Android Open Source Project (AOSP))</li>
+                            <li>userspace hardware abstraction layer (HAL)</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="arch-gecko" data-background="#de6a10">
+                    <h2>Gecko</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li>includes a networking stack</li>
+                            <li>includes graphics stack</li>
+                            <li>includes layout engine</li>
+                            <li>includes a JavaScript virtual machine</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="arch-gaia" data-background="#00882b">
+                    <h2>Gaia</h2>
+
+                    <p>UI level of Firefox OS</p>
+                    <p class="fragment">Only interface to the underlying operating system and hardware</p>
+                    <aside class="notes">
+                        <p>FRAGMENT: Only interface to the underlying operating system and hardware</p>
+                        <ul>
+                            <li>... through standard Web APIs implemented by Gecko</li>
+                            <li>entirely written in HTML, CSS, and JavaScript</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="arch-webapi-activities" data-background="#00882b">
+                    <h2>Web APIs and Web activities</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li class="">Web APIs</li>
+                            <ul class="">
+                                <li>Access device hardware</li>
+                                <li>Provides access to data storage</li>
+                                <li>Security - three layers</li>
+                                <li>With standards in mind(W3C)</li>
+                            </ul>
+                            <li class="">Web Activities</li>
+                            <ul class="">
+                                <li>App requests data from an other app</li>
+                                <li>e.g. Dial a number requests Phone app</li>
+                            </ul>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="arch-3rdparty-apps" data-background="#00882b">
+                    <h2>Apps and 3rd party apps</h2>
+
+                    <p>Every HTML5, Javascript, CSS based Apps for Firefox OS</p>
+                    <p>Using WebAPIs and Web Activities</p>
+                    <aside class="notes">
+                        Every App on Firefox OS uses Web activities and Web APIs. No matter if system App (dialer, Contacts
+                        etc) or 3rd Party Apps. Every App relies on them.
+                    </aside>
+                </section>
+
+                <section id="app-development">
+                    <h2>App Development</h2>
+                    <p class="fragment">Open Web Apps</p>
+                    <aside class="notes">
+                        Apps for Firefox OS are HTML5 apps with an extra manifest file<br>
+                        secured by a three layer security model allowing more or less access depending on the location of the app<br>
+                        You can find and install them either from the web or the marketplace
+                    </aside>
+                </section>
+                <section id="kinds-of-apps">
+                    <h2>3 different App types</h2>
+                </section>
+                <section id="hosted" data-background="#00539F">
+                    <h2>Hosted Apps</h2>
+                    <aside class="notes">
+                        WEB basically every html5 webpage, selfhosted.
+                    </aside>
+                </section>
+                <section id="privileged" data-background="#FF9500">
+                    <h2>Privileged Apps</h2>
+                    <aside class="notes">
+                        PRIVILEGED Authenticated Apps e.g. by Marketplace
+                    </aside>
+                </section>
+                <section id="certified" data-background="#E66000">
+                    <h2>Certified Apps</h2>
+                    <aside class="notes">
+                        CERTIFIED authenticated app that is intended for critical system functions (dialer, etc)
+                    </aside>
+                </section>
+                <section id="webapp-manifest">
+                    <h2>The Web App Manifest</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li>distinguishes an Open Web App from a website</li>
+                            <li class="">JSON Configuration file</li>
+                            <li class="">Includes: permissions, author, description, type, icons, locale etc.</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="manifest-example" data-background="#00539F">
+                    <h2>Example (minimal)</h2>
+                    <pre><code data-trim contenteditable>
+{
+    "name": "My Awesome App",
+    "description": "My elevator pitch goes here",
+    "launch_path": "/somedir/index.html",
+    "icons": {
+        "128": "/img/icon-128.png"
+    },
+    "developer": {
+        "name": "Your Name",
+        "url": "http://your-homepage-here.tld"
+    },
+    "default_locale": "en"
+}
+                    </code></pre>
+                    <aside class="notes">
+                        This is a hosted app!
+                    </aside>
+                </section>
+
+                <section id="manifest-privileged" data-background="#FF9500">
+                    <h2>Example Privileged app</h2>
+                    <pre><code data-trim contenteditable>
+{
+    "name": "My Awesome Privileged App",
+        ....
+    "type": "privileged",
+    "fullscreen": "true",
+    "permissions": {
+        "contacts": {
+            "description": "Required for autocompletion in the share screen",
+            "access": "readcreate"
+        }
+    },
+    "default_locale": "en",
+        ...
+}
+                    </code></pre>
+                    <aside class="notes">
+                        <ul>
+                            <li>Includes permissions</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section id="webapis">
+                    <h2>Web APIs</h2>
+
+                    <p>Open API specifications to access the hardware of devices</p>
+                    <p class="fragment">Created with and submitted to standards bodies and other browser makers</p>
+
+                    <aside class="notes">
+                        <p>FRAGMENT: Created with and submitted to standards bodies and other browser makers</p>
+                        Web API allows access to device hardware features and to device data stores (System XHR,
+                        IndexedDB, Contacts API, Alarm, push etc.).
+                    </aside>
+                </section>
+                <section id="webapis-hosted" data-background="#00539F">
+                    <h2>Web APIs: hosted Apps</h2>
+                    <ul class="inline">
+                        <li>Vibration API</li>
+                        <li>Screen Orientation</li>
+                        <li>Geolocation API</li>
+                        <li>Mouse Lock API</li>
+                        <li>Open WebApps</li>
+                        <li>Network Information API</li>
+                        <li>Battery Status API</li>
+                        <li>Alarm API</li>
+                        <li>Push Notifications API</li>
+                        <li>WebFM API / FMRadio</li>
+                        <li>WebPayment</li>
+                        <li>IndexedDB</li>
+                        <li>Ambient light sensor</li>
+                        <li>Proximity sensor</li>
+                        <li>Notification</li>
+                    </ul>
+                </section>
+                <section id="webapis-privileged" data-background="#FF9500">
+                    <h2>Web APIs: privileged Apps</h2>
+                    <ul class="inline">
+                        <li>Device Storage API</li>
+                        <li>Browser API</li>
+                        <li>TCP Socket API</li>
+                        <li>Contacts API</li>
+                        <li>systemXHR</li>
+                    </ul>
+                </section>
+              <section>
+                <section id="webapis-certified" data-background="#E66000">
+                    <h2>Web APIs: certified Apps</h2>
+                    <ul class="inline">
+                        <li>WebTelephony</li>
+                        <li>WebSMS</li>
+                        <li>Idle API</li>
+                        <li>Settings API</li>
+                        <li>Power Management API</li>
+                        <li>Mobile Connection API</li>
+                        <li>WiFi Information API</li>
+                        <li>WebBluetooth</li>
+                        <li>Permissions API</li>
+                        <li>Network Stats API</li>
+                        <li>Camera API</li>
+                        <li>Time/Clock API</li>
+                        <li>Attention screen</li>
+                        <li>Voicemail</li>
+                    </ul>
+                </section>
+
+                <section id="webapi-code-example-battery">
+                    <h2></h2>
+                    <p>Example: Battery API</p>
+                    <pre><code data-trim contenteditable>
+var battery = navigator.battery ||
+              navigator.mozBattery ||
+              navigator.webkitBattery,
+    info = {
+        charging: battery.charging,
+        chargingTime: parseInt(battery.chargingTime / 60, 10),
+        dischargingTime: parseInt(battery.dischargingTime / 60, 10),
+        level: Math.round(battery.level * 100)
+    };
+                    </code></pre>
+                    <aside class="notes">
+                        With the battery API the current status of your phone or notebook could read.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-battery-2">
+                    <h2>Example: Battery API - cont.</h2>
+                    <p>APIs are event driven!</p>
+                    <pre><code data-trim contenteditable>
+var battery = navigator.battery ||
+              navigator.mozBattery ||
+              navigator.webkitBattery;
+
+function updateBatteryStatus() {
+    console.log("Battery status: " + battery.level * 100 + " %");
+
+    if (battery.charging) {
+        console.log("Battery is charging");
+    }
+}
+
+battery.addEventListener("chargingchange", updateBatteryStatus);
+battery.addEventListener("levelchange", updateBatteryStatus);
+updateBatteryStatus();
+                    </code></pre>
+                </section>
+                <section id="webapi-code-example-geolocation">
+                    <h2>Example: Geolocation API*</h2>
+                    <pre><code data-trim contenteditable>
+navigator.geolocation.getCurrentPosition(handleLocation);
+
+function handleLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+}
+
+// Or watch the current position...
+var watchID = navigator.geolocation.watchPosition(function(position) {
+    handlePostion(position.coords.latitude, position.coords.longitude);
+});
+                    </code></pre>
+                    <small>*Ok, ok, not really a new one!</small>
+                    <aside class="notes">
+                        With geolocation API it's possible to locate a user with GPS (or Wifi/Cell). This API
+                        is not really new and mostly well known.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-vibration">
+                    <h2>Example: Vibration API</h2>
+                    <pre><code data-trim contenteditable>
+
+var pattern = [200, 100, 200, 200, 100],
+    goodVibration = navigator.vibrate(pattern);
+
+                    </code></pre>
+                    <aside class="notes">
+                        The vibration API allows access to device vibration. Useful for UI Feedback or alarms.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-notification">
+                    <h2>Example: Notification API</h2>
+                    <p>Needs permissions granted by users! (e.g. webapp.manifest)</p>
+                    <pre><code data-trim contenteditable>
+"permissions": {
+  "desktop-notification": {
+    "description": "Allows to display notifications on the user's desktop."
+  }
+}
+                    </code></pre>
+                    <pre><code data-trim contenteditable>
+// At first, let's check if we have permission for notification
+// If not, let's ask for it
+if (Notification && Notification.permission !== "granted") {
+    Notification.requestPermission(function (status) {
+          if (Notification.permission !== status) {
+                Notification.permission = status;
+          }
+});
+}
+
+if (Notification && Notification.permission === "granted") {
+    var n = new Notification("Hi!");
+}
+                    </code></pre>
+                    <aside class="notes">
+                        With Notification API it is possible to trigger notifications for the user (not push!)
+                    </aside>
+                </section>
+                <section id="webapi-code-example-connection">
+                    <h2>Example: Connection API</h2>
+                    <p>Get information about current connection</p>
+                    <pre><code data-trim contenteditable>
+var connection = navigator.connection ||
+                 navigator.webkitConnection ||
+                 navigator.mozConnection;
+
+function updateConnectionStatus() {
+    console.log("Connection changed");
+    console.log("Bandwidth: " + connection.bandwidth);
+    console.log("Metered: " + connection.metered);
+}
+
+connection.onchange = updateConnectionStatus;
+                    </code></pre>
+                    <aside class="notes">
+                        With Connection API it is possible to get information about current connection and bandwidth.
+                        Useful for fallbacks, when connection isn't available, loading optmized data etc.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-ambientlight">
+                    <h2>Example: Ambientlight</h2>
+                    <p>Get current Lux of ambient light</p>
+                    <pre><code data-trim contenteditable>
+window.ondevicelight = function (event) {
+    // Read out the lux value
+    var lux = event.value;
+};
+                    </code></pre>
+                    <aside class="notes">
+                        With ambientlight it is possible to get the amount of ambient light! Usefull to adapt colors,
+                        brightness etc.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-contacts">
+                    <h2>Example: Contacts API</h2>
+                    <p>Read/Write/Delete Contacts - Permission required!</p>
+                    <pre><code data-trim contenteditable>
+"permissions": {
+    "contacts":{
+        "description": "Contacts permissions is required to write contact from Google to your Firefox OS phone",
+        "access": "readwrite" }
+  }
+}
+                    </code></pre>
+                    <pre><code data-trim contenteditable>
+var contactData = {
+    givenName: ["John"],
+    familyName: ["Doe"]
+};
+
+var person = new mozContact(contactData);
+// save the new contact
+var saving = navigator.mozContacts.save(person);
+
+saving.onsuccess = function() {
+    console.log('new contact saved');
+};
+
+saving.onerror = function(err) {
+    console.error(err);
+};
+                    </code></pre>
+                    <aside class="notes">
+                        Read, write, create contacts with contacts API. Needs permission!
+                    </aside>
+                </section>
+                <section id="webapi-code-example-devicestorage">
+                    <h2>Example: Device Storage API</h2>
+                    <p>Save/Read from sdcard, photo, music, video ...</p>
+                    <pre><code data-trim contenteditable>
+"permissions": {
+    "device-storage:pictures":{ "access": "readwrite" },
+    "device-storage:sdcard":{ "access": "readwrite" }
+}
+                    </code></pre>
+                    <pre><code data-trim contenteditable>
+var sdcard = navigator.getDeviceStorage("sdcard"),
+    file = new Blob(["This is a text file."], {type: "text/plain"}),
+    request = sdcard.addNamed(file, "my-file.txt");
+
+request.onsuccess = function () {...}
+request.onerror = function () {...}
+
+var pics = navigator.getDeviceStorage('pictures');
+// browse all the images available
+var cursor = pics.enumerate();
+cursor.onsuccess = function () {
+      var file = this.result;
+      console.log("File found: " + file.name);
+
+      // check if there is other results
+      if (!this.done) {
+            // Then we move to the next result, which call the cursor
+            // success with the next file as result.
+            this.continue();
+      }
+}
+                    </code></pre>
+                    <aside class="notes">
+                        Read, create, write files on sdcard, photos, videos with device storage api.
+                    </aside>
+                </section>
+                <section id="webapi-code-example-manymore">
+                    <h2>And there are many more!</h2>
+                    <img src="images/webapis.png" style="height: 450px;">
+                    <p>
+                        <a href="https://developer.mozilla.org/en-US/docs/WebAPI">APIs at MDN</a>
+                    </p>
+                </section>
+              </section>
+
+                <section id="webactivities">
+                    <h2>Web Activities</h2>
+                    <aside class="notes">
+                        Web activities define a way for applications to delegate an activity to another (usually user-chosen) application.
+                    </aside>
+                </section>
+              <section>
+                <section id="webactivities-overview">
+                    <h2>Web activities</h2>
+                    <ul class="inline">
+                        <li>configure</li>
+                        <li>costcontrol</li>
+                        <li>dial</li>
+                        <li>open</li>
+                        <li>pick</li>
+                        <li>record</li>
+                        <li>save-bookmark</li>
+                        <li>share</li>
+                        <li>view</li>
+                        <li>update</li>
+                    </ul><br><br>
+                    <p>new: f.e type: “websms/sms” or “webcontacts/contact”</p>
+                </section>
+                <section id="webactivities-dial">
+                    <h2>Example: Dial a number</h2>
+                    <p></p>
+                    <pre><code data-trim contenteditable>
+var call = new MozActivity({
+    name: "dial",
+    data: {
+        number: "+49123456789"
+    }
+});
+                    </code></pre>
+                    <p class="fragment">Invokes "native" Dialer app</p>
+                </section>
+                <section id="webactivities-url">
+                    <h2>Example: Open an URL</h2>
+                    <p></p>
+                    <pre><code data-trim contenteditable>
+var openURL = new MozActivity({
+    name: "view",
+    data: {
+        type: "url", // Possibly text/html in future versions
+        url: "http://www.developer-week.de/"
+    }
+});
+                    </code></pre>
+                    <p class="fragment">Invokes "native" browser</p>
+                </section>
+                <section id="webactivities-sms">
+                    <h2>Example: Send a SMS</h2>
+                    <p></p>
+                    <pre><code data-trim contenteditable>
+var sms = new MozActivity({
+    name: "new",
+    data: {
+        type: "websms/sms",
+        number: "+49987654321"
+    }
+});
+                    </code></pre>
+                    <p class="fragment">Invokes "native" messaging app</p>
+                </section>
+                <section id="webactivities-example-image-1">
+                    <h2>Example: Pick an image</h2>
+                    <pre><code data-trim contenteditable>
+var getphoto = new MozActivity({
+  name: "pick",
+  data: {
+    type: ["image/png",
+           "image/jpg",
+           "image/jpeg"]
+  }
+});
+                    </code></pre>
+                </section>
+                  <section id="webactivities-example-imgae-result">
+                      <h2>Result</h2>
+                      <img width="" height="" src="images/pick_image.png" alt="">
+                  </section>
+                 <section id="webactivities-example-image-access">
+                    <h2>Example: Pick an image - cont.</h2>
+                    <pre><code data-trim contenteditable>
+getphoto.onsuccess = function() {
+    var img = document.createElement("img");
+    if (this.result.blob.type.indexOf("image") != -1) {
+        img.src = window.URL.createObjectURL(this.result.blob);
+    }
+};
+getphoto.onerror = function() { // error
+};
+                    </code></pre>
+                </section>
+                <section id="webactivities-register-1">
+                    <h2>Register an app as activity handler</h2>
+                    <pre class="fragment"><code data-trim contenteditable>
+{
+    // Other App Manifest related stuff
+
+    // Activity registration
+    "activities": {
+        "pick": {
+            "href": "./pick.html",
+            "disposition": "inline",
+            "filters": {
+                "type": ["image/*", "image/jpeg", "image/png"]
+            },
+            "returnValue": true
+        }
+    }
+}
+                    </code></pre>
+                    <aside class="notes">
+                        <p>Fragement: Manifest!</p>
+                        <ul>
+                            <li>window - The page handling the activity is opened in a new "window"</li>
+                            <li>inline - The page that handles the activity will open in an overlay </li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="webactivities-handle">
+                    <h2>Handle an activity</h2>
+                    <pre><code data-trim contenteditable>
+navigator.mozSetMessageHandler('activity', function(activityRequest) {
+    var option = activityRequest.source;
+
+    if (option.name === "pick") {
+
+        // Do something to handle the activity
+
+        // Send back the result
+        if(picture) {
+            activityRequest.postResult(picture);
+        } else {
+            activityRequest.postError("Unable to provide a picture");
+        }
+    }
+});
+                    </code></pre>
+                </section>
+              </section>
+                <section id="tool-utils">
+                    <h2>Tools&Utils</h2>
+                </section>
+                <section id="tools-testing">
+                    <h2>Testing</h2>
+                    <ul class="fragment">
+                        <li>Simulator</li>
+                        <li>Browser - It's a Web App!</li>
+                    </ul>
+                    <aside class="notes">
+                        Simulator or Browser!
+                    </aside>
+                </section>
+                <section id="tools-dev">
+                    <h2>Development</h2>
+                    <ul class="fragment">
+                        <li>No SDK!</li>
+                        <li>Use your favorite IDE/Editor</li>
+                        <li>It's HTML5!</li>
+                        <li class="fragment">WebIDE!</li>
+                    </ul>
+                </section>
+                <section id="tools-webIDE">
+                    <h2>WebIDE</h2>
+                    <img width="" height="450" src="images/webIDE.png" alt="">
+                    <aside class="notes">
+                        <ul>
+                            <li>Comes with Firefox (nightly)</li>
+                            <li>Includes templates for kickstart an app!</li>
+                            <li>Live Demo!!</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="tools-rad">
+                    <h2>Rapid Application Development</h2>
+                    <p class="fragment">use Mozillas Appmaker</p>
+                    <span class="fragment" ><img width="700" height="" src="images/appmaker.png" alt="">
+                    <p><a href="https://apps.webmaker.org/">https://apps.webmaker.org/</a></p></span>
+                    <aside class="notes">
+                        Use Mozilla Appmaker.
+                    </aside>
+                </section>
+                <section id="tools-debug">
+                    <h2>Debugging</h2>
+                </section>
+                <section id="tools-debug-simulator">
+                    <h2>Debugging - simulator</h2>
+                    <img src="images/ffos_sim_debug.png" width="500" height="">
+                    <ul class="fragment">
+                        <li>Developer tools in Firefox! (NOT! Firebug)</li>
+                        <li>Remote Debugger!</li>
+                    </ul>
+
+                    <aside class="notes">
+                        <p>Fragment: Dev Tools Firefox & Remote debugger</p>
+                        <p>Live DEMO!!</p>
+                    </aside>
+                </section>
+                <section id="tools-debug-remote">
+                    <h2>Debugging - remote</h2>
+                    <ul>
+                        <li class="fragment">Connect your device</li>
+                        <li class="fragment">Debug!</li>
+                        <li class="fragment">That's all</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>Connect Device</li>
+                            <li>ADB enabled</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="tools-UI">
+                    <h2>UI Components</h2>
+                    <img src="images/buildingfirefoxos.png">
+                    <a href="http://buildingfirefoxos.com/">http://buildingfirefoxos.com/</a>
+                </section>
+                <section id="tools-UI-2">
+                    <h2>UI Components - Brick!</h2>
+                    <img src="images/brick.jpg">
+                    <a href="http://mozilla.github.io/brick/">http://mozilla.github.io/brick/</a>
+
+                    <aside class="notes">
+                        Using Web Components!
+                    </aside>
+                </section>
+                <section id="tools-boiler-plate">
+                    <h2>Firefox OS Boilerplate</h2>
+                    <img src="images/boilerplate.jpg"><br/>
+                    <a href="https://github.com/robnyman/Firefox-OS-Boilerplate-App">https://github.com/robnyman/Firefox-OS-Boilerplate-App</a>
+                </section>
+                <section id="tools-phonegap-cordove">
+                    <h2>Phonegap and Cordova</h2>
+                    <img src="images/cordova_bot.png"><br/>
+                    <a href="http://build.phonegap.com/">http://build.phonegap.com/</a><br>
+                    <a href="http://cordova.apache.org/">http://cordova.apache.org/</a>
+                </section>
+                <section id="distribution">
+                    <h2>How to distribute your App</h2>
+                </section>
+                <section id="distribution-hosted">
+                    <h2>Hosted App</h2>
+                    <ul class="fragment">
+                        <li>Host the App on your web space</li>
+                        <li>Provide installation using WebAPI</li>
+                    </ul>
+                    <aside class="notes">
+                        FRAGMENT: Host the App on your Web
+                        Provide installation using WebAPI
+                    </aside>
+                </section>
+                <section id="distribution-hosted-install">
+                    <h2>Hosted App distribution</h2>
+                    <p>Check if app is already installed</p>
+                    <pre><code data-trim contenteditable>
+var request = navigator.mozApps.checkInstalled(manifestPath);
+
+request.onerror = function() {
+      console.log('Error checking for installed app: ', request.error.name);
+};
+
+request.onsuccess = function() {
+    // If the app is installed, you'll get a mozApp object in `request.result`,
+    // else `request.result` is null
+    console.log("Could be installed: ", request.result !== null ? "is installed" : "is not installed");
+};
+                    </code></pre>
+                </section>
+                <section id="distribution-hosted-install-2">
+                    <h2>Hosted App distribution</h2>
+                    <p>Install your app</p>
+                    <pre><code data-trim contenteditable>
+var installRequest = navigator.mozApps.install(manifestPath);
+
+installRequest.onsuccess = function() {
+    // No error
+    console.log("App installed");
+};
+
+installRequest.onerror = function() {
+    console.log('Error installing the app: ', installRequest.error.name);
+};
+                    </code></pre>
+                    <p class="fragment">Done. Cool, eh?</p>
+                    <p class="fragment">Works on Firefox Android, too.</p>
+                    <aside class="notes">
+                        FRAGMENT: Done!
+                        Works on Firefox Android, too!
+                    </aside>
+                </section>
+                <section id="distribution-privileged">
+                    <h2>Privileged App</h2>
+                    <span class="fragment">
+                        <p>Distribute via Firefox OS Marketplace</p>
+                        <img src="images/marketplace.jpg">
+                    </span>
+                    <aside class="notes">
+                        FRAGMENT: Marketplace-Image!
+                    </aside>
+                </section>
+                <section id="distribution-privileged-2">
+                    <h2>Privileged app distribution</h2>
+                    <span class="fragment">
+                        <p>Validate using App-Manager</p>
+                        <img src="images/app-manager.png">
+                    </span>
+                    <p class="fragment">Upload ZIP of your app to marketplace.</p>
+                    <p class="fragment">Wait for approval. Done.</p>
+                    <aside class="notes">
+                        <p>Fragement!</p>
+                        <ul>
+                            <li>Validate using App-Manager</li>
+                            <li>Upload Zip</li>
+                            <li>wait -> done!</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="go-create" data-background="images/Firefox_OS.jpg">
+                    <aside class="notes">
+                        <ul>
+                            <li>It was never easier for a Web developer to create mobile apps</li>
+                            <li>Web developers are now able to work on a whole mobile OS, too!</li>
+                            <li>The web get's more "native" features.</li>
+                            <li>Every exisiting HTML5 WebApp could easily be packaged as a FxOS App!</li>
+                        </ul>
+                    </aside>
+                </section>
+                <section id="thankyou">
+                    <h2>Thank you!</h2>
+                    <p>
+                        Carsten Sandtner<br>
+                        <a href="http://www.twitter.com/casarock">@casarock</a><br>
+                    </p>
+                    <img src="images/goetze.png" alt="">
+
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+				theme: 'default',
+				//transition: 'linear',
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
