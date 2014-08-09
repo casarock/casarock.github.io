@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Phaser Basic Project Template</title>
+
+    <style>
+		body { margin: 0; background: #000000; }
+
+		#game {
+			width:320px;
+			height:288px;
+			position: absolute;
+			left:50%;
+			top:50%;
+			margin: -144px 0 0 -160px;
+		}
+
+	</style>
+
+	<script src="vendor/phaser.js"></script>
+
+
+    <script type="text/javascript" src="vendor/player-small.js"></script>
+    <script type="text/javascript" src="vendor/song.js"></script>
+    <script type="text/javascript" src="vendor/riffwave.js"></script>
+    <script src="game.js"></script>
+</head>
+<body>
+<div id="phaser" style = "display: none"></div>
+<div id="game">
+    <canvas id="pixel" width="320" height="288"></canvas>
+</div>
+
+<script type="text/javascript">
+(function() {
+
+	var game = new Phaser.Game(160, 144, Phaser.CANVAS, 'phaser');
+    game.CS = {
+        settings: {
+            originWidth: 160,
+            originHeight: 144,
+            pixelcontent: null,
+            pixelwidth: 0,
+            pixelheight: 0
+        }
+    }
+
+	game.state.add('Boot', DropSomething.Boot);
+	game.state.add('Preloader', DropSomething.Preloader);
+	game.state.add('MainMenu', DropSomething.MainMenu);
+	game.state.add('Help', DropSomething.Help);
+	game.state.add('Game', DropSomething.Game);
+
+	//	Now start the Boot state.
+	game.state.start('Boot');
+
+})();
+
+</script>
+
+</body>
+</html>
