@@ -2,7 +2,7 @@
   "version": "0.1",
   "name": "Ambi Lander",
   "description": "Lunar Lander like with web APIs",
-  "launch_path": "game.html",
+  "launch_path": "ambilander/game.html",
   "developer": {
     "name": "Carsten Sandtner",
     "url": "http://appsbu.de"
