@@ -1,0 +1,18 @@
+html, body {
+    height: 100%;
+}
+.box {
+    bottom: 0; /* increase for footer use */
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 46px;
+}
+
+.nav-header {
+    font-size: 26px;
+}
+
+.loader {
+    display: none;
+}

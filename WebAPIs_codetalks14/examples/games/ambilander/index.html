@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ambi Lander - Landingpage</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <style>
+        body {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="game.html" class="btn btn-info btn-xl">PLAY</a><br><br>
+
+            <button style="display:none" id="installambilander" class="btn btn-success btn-xl">Install</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/install.js"></script>
+<script type="text/javascript">
+
+
+    try {
+        if (AppInstall.isInstallable()) {
+            var manifestPath = AppInstall.guessManifestPath();
+
+            AppInstall.isInstalled(manifestPath, function isInstalledCb(err, result) {
+
+                if (!err && !result) {
+                    var installButton = document.getElementById('installambilander');
+                    installButton.style = "display:block";
+                    installButton.addEventListener('click', function () {
+
+                        AppInstall.install(manifestPath, function (err) {
+                            if (!err) {
+                                installButton.style = "display:none;";
+                            } else {
+                                alert('The app cannot be installed: ' + err);
+                            }
+                        });
+
+                    }, false);
+
+                }
+
+            });
+        }
+    } catch(err) {
+        console.log("Error: ", err);
+    }
+</script>
+</body>
+</html>

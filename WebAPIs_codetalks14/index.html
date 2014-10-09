@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>WEB APIs - Code.talks 14</title>
+
+    <meta name="description" content="Web APIS">
+    <meta name="author" content="Carsten Sandtner">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/style.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section id="title">
+            <h1>Web APIs</h1>
+            <h3>expand what the web can do...</h3>
+            <p>
+                <small>Carsten Sandtner (<a href="http://www.titter.com/casarock">@casarock</a>) 2014 - code.talks 14</small>
+            </p>
+        </section>
+
+        <section id="whoami">
+            <h2>Who am I?</h2>
+
+            <p>
+                Carsten Sandtner<br>
+                Head of Development at //mediaman GmbH<br/>
+                Mozilla representative<br/>
+                <br>
+                Javascript enthusiast and web developer since 1998.
+            </p>
+        </section>
+        <section id="popcorn">
+            <img height="500" src="images/waitwait_popcorn.gif">
+        </section>
+        <section id="bttf" data-background="images/bttf_delorean.jpg">
+            <aside class="notes">
+                A little travel in time and history of Browsers and "standards"
+            </aside>
+        </section>
+
+        <section>
+            <section id="first-browser-war">
+                <h2>The first browser war...</h2>
+                <img width="" height="" src="images/1st_browser-war.gif" alt="">
+                <p>Microsoft vs. Netscape!</p>
+                <aside class="notes">
+                    Arms race of feature!
+                </aside>
+            </section>
+            <section id="arms-race">
+                <h2>Arms race of features</h2>
+                <p class="fragment">Everyone invented new and "better" features!</p>
+                <p class="fragment">support other features? Hell, NO!</p>
+                <img class="fragment" width="" height="" src="images/the_homer.jpg" alt="">
+                <aside class="notes">
+                    <ul>
+                        <li>Everyone invented new and "better" features!</li>
+                        <li>support other features? Hell, NO!</li>
+                    </ul>
+                </aside>
+            </section>
+            <section id="best-viewed">
+                <h2>And this happened...</h2>
+
+                <img class="fragment" width="" height="" src="images/best_viewed.jpg" alt="">
+                <aside class="notes">
+                    Best viewed with!
+                </aside>
+            </section>
+            <section id="features_wo_w3c">
+                <h2>Standards? What standards?</h2>
+                <ul>
+                    <li class="fragment">W3C - ignored...</li>
+                    <li class="fragment">"We know what you want!"</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>W3C - ignored...</li>
+                        <li>"We know what you want!"</li>
+                    </ul>
+                </aside>
+            </section>
+            <section id="browser_sniffing">
+                <h2>And Web Developers?</h2>
+                <p class="fragment">Implemented pretty good browser detection</p>
+                <aside class="notes">
+                    Browser detection
+                </aside>
+            </section>
+            <section id="user_agents">
+                <h2>And Browser vendors?</h2>
+                <p class="fragment">Browser Vendors wanted to be "supported"</p>
+                <h4 class="fragment">... and this happened:</h4>
+                <aside class="notes">
+                    Want to be supported<br>
+                    and this happened...
+                </aside>
+            </section>
+            <section id="user_agents_2">
+                <h2>Faking User Agents</h2>
+                <pre class="fragment">
+Mosaic/0.9                                     // grandmother of all!
+Mozilla/2.02 [fr] (WinNT; I)                   // Netscapes first!
+Mozilla/4.0 (compatible; MSIE 4.0; Windows 98) // IE4!
+                </pre>
+                <p class="fragment">Funny? There is more...</p>
+                <aside class="notes">
+                    Mozilla -> Moasic Killer
+                </aside>
+            </section>
+            <section id="user_agents_3">
+                <h2>Faking User Agents - part 2</h2>
+                <pre class="fragment">
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11  // Firefox!
+Mozilla/5.0 (compatible; Konqueror/Version; OS-or-CPU) KHTML/KHTMLVersion (like Gecko)        // Konqueror
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/124 (KHTML, like Gecko) Safari/125.1 // Safari!
+                </pre>
+                <p class="fragment">And Chrome?</p>
+                <pre class="fragment">
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.29 Safari/525.13
+                </pre>
+                <p class="fragment">But Opera?</p>
+                <pre class="fragment">
+Opera/8.0 (Windows NT 5.1; U; en)
+                </pre>
+                <p class="fragment">&lt;9 ... &gt;9 has... </p>
+                <pre class="fragment">
+Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.50
+Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36 OPR/15.0.1147.153
+                </pre>
+                <p class="fragment">*sigh*</p>
+            </section>
+            <section id="mozilla_everywhere">
+                <h2>At the end: Everything is a Mozilla...</h2>
+                <img width="" height="" src="images/facepalm.gif" alt="">
+                <p class="fragment">and Internet Explorer won the first browser war</p>
+                <aside class="notes">
+                    and IE win!
+                </aside>
+            </section>
+        </section>
+        <section id="ie_95">
+            <h2>Internet Explorer won</h2>
+            <ul class="fragment">
+                <li>Development stopped for 5 years!</li>
+                <li>"Optimized for IE 6!"</li>
+                <li>Standards? IE was the standard!</li>
+            </ul>
+            <img class="fragment" width="" height="400" src="images/browser_development.jpg" alt="">
+            <aside class="notes">
+                <ul>
+                    <li>Development stopped for 5 years!</li>
+                    <li>"Optimized for IE 6!"</li>
+                    <li>Standards? IE was the standard!</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <section id="second-browser-war">
+                <h2>The second browser war...</h2>
+                <img width="" height="500" src="images/second_war.jpg" alt="">
+                <p>The rise of the others</p>
+            </section>
+            <section id="the_others">
+                <h2>The others</h2>
+
+                <p>Other browser vendors raised</p>
+
+                <p class="fragment">They keep standards in mind and develop them together</p>
+                <ul  class="fragment">
+                    <li>Mozilla (Firefox)</li>
+                    <li>Konqueror</li>
+                    <li>Safari</li>
+                    <li>Opera</li>
+                    <li>Chrome</li>
+                </ul>
+                <aside class="notes">
+                    They keep standards in mind and develop them together
+                </aside>
+            </section>
+            <section id="standards">
+                <h3>Standards, everywhere standards!</h3>
+                <p class="fragment">There is not only one "tool" for the internet</p>
+                <aside class="notes">
+                    There is not only one Tool for the internet
+                </aside>
+            </section>
+            <section id="standards_2">
+                <h3>New Feature: Implemented a STANDARD!</h3>
+            </section>
+            <section id="competition">
+                <h2>Competition?</h2>
+                <p class="fragment">Still exisits, but:</p>
+                <ul class="fragment">
+                    <li>Performance!</li>
+                    <li>Security!</li>
+                    <li>Release cycles!</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>Performance!</li>
+                        <li>Security!</li>
+                        <li>Release cycles!</li>
+                    </ul>
+                </aside>
+            </section>
+            <section id="competition_2">
+                <h2>Benchmarks</h2>
+                <p class="fragment">Standardized</p>
+            </section>
+            <section id="competition_3">
+                <h2>Unique characteristic?</h2>
+                <p class="fragment">Add ons, technical features, developer tools etc..</p>
+                <p class="fragment">Developers are being targeted.</p>
+                <aside class="notes">
+                    Developers are important!
+                </aside>
+            </section>
+            <section id="competition_4">
+                <blockquote cite="Mozilla">
+                    &ldquo;Make the Internet a better place&rdquo;
+                </blockquote>
+            </section>
+            <section id="web_won">
+                <h3>The web won!</h3>
+            </section>
+        </section>
+        <section id="mobile_web">
+            <h2>The "mobile" Web</h2>
+            <img class="fragment" width="" height="" src="images/wap.png" alt="">
+            <p class="fragment">eh? no.</p>
+        </section>
+        <section>
+            <section id="real_mobile_web">
+                <h2>The "real" mobile Web</h2>
+                <img width="" height="500" src="images/iphone_safari.jpg" alt="">
+            </section>
+        </section>
+        <section id="real_mobile_web_2">
+            <h2>Everything changes...</h2>
+            <p>We want ... </p>
+            <ul class="fragment">
+                <li>... access to hardware features</li>
+                <li>... access Calendar, Addressbook</li>
+                <li>etc.</li>
+            </ul><br/>
+            <p class="fragment">We got it!</p>
+            <p class="fragment">But: Lessons learned from the past</p>
+            <p class="fragment">Standards!</p>
+            <aside class="notes">
+                <ul>
+                    <li>Access hardware features</li>
+                    <li>Access Calendar, Addressbook</li>
+                    <li>etc.</li>
+                </ul>
+                But lessons learned: STANDARDS!
+            </aside>
+        </section>
+        <section id="new_tech_new_api">
+            <h2>New technologies need new APIs</h2>
+
+            <p class="fragment">Vendors work together</p>
+            <ul>
+                <li class="fragment">Service Workers (Google&Mozilla)</li>
+                <li class="fragment">Web Components (Google&Mozilla)</li>
+                <li class="fragment">WebGL etc.</li>
+            </ul>
+            <aside class="notes">
+                Vendors work together. Service worker, web Components etc.
+            </aside>
+        </section>
+        <section id="web_everywhere">
+            <blockquote cite="">
+                &ldquo;The web is everywhere&rdquo;
+            </blockquote>
+        </section>
+        <section id="web_everywhere_2">
+            <blockquote cite="">
+                &ldquo;The web in your hands&rdquo;
+            </blockquote>
+        </section>
+        <section>
+            <section id="new_needs">
+                <h2>Mobiles need new APIs</h2>
+                <ul class="fragment">
+                    <li>iPhone 2007: No SDK, just HTML5!</li>
+                    <li>A smartphone without a browser? Unbelieveable!</li>
+                    <li>Smartphones pushed HTML5</li>
+                </ul>
+                <aside class="notes">
+                    Iphone 2007, Phone without Browser? HTML5 pushed by mobiles!
+                </aside>
+            </section>
+            <section id="firefox_os">
+                <h2>HTML5 based OS</h2>
+
+                <img class="fragment" width="" height="500" src="images/Firefox_OS.jpg" alt="">
+                <aside class="notes">
+                    WebOS, Chrome OS and: Firefox OS
+                </aside>
+            </section>
+            <section id="firefox_os_api">
+                <h2>HTML5 OS needs new APIs</h2>
+                <p class="fragment">Firefox OS is open source and with standards in mind</p>
+                <p class="fragment">Mozilla introduced new APIs for mobile devices</p>
+                <p class="fragment">Consistent use of APIs</p>
+                <aside class="notes">
+                    FFOS: Open Source, standards. API introduced. Consistent use of APIs
+                </aside>
+            </section>
+            <section id="firefox_os_w3c">
+                <h2>APIs submitted to W3C</h2>
+                <h3 class="fragment">Adopted by other mobile browsers ... </h3>
+                <h4 class="fragment">... and desktop browsers</h4>
+                <p class="fragment">more features, more fun!</p>
+                <aside class="notes">
+                    adopted by mobile ... desktop .. more fun.
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section id="web_apis">
+                <h2>Web APIs</h2>
+                <p>
+                    <small>tell me more</small>
+                </p>
+            </section>
+            <section id="webapi_quote">
+                <h2>Definition</h2>
+                <blockquote cite="Mozilla MDN">
+                    &ldquo;<b>WebAPI</b> is a term used to refer to a suite of <b>device compatibility</b> and access APIs that
+                    allow <b>Web apps</b> and content to <b>access device hardware</b> (such as battery status or the device
+                    vibration hardware), as well as <b>access to data stored on the device</b> (such as the calendar or
+                    contacts list). <br><br>By adding these APIs, we hope to expand what the Web can do today and only
+                    proprietary platforms were able to do in the past.&rdquo;
+                </blockquote>
+            </section>
+            <section id="webapi_standard_vs_nonstd">
+                <h2>Disclaimer</h2>
+                <p class="fragment">Some WebAPIs are not (yet) a standard</p>
+                <p class="fragment">I've marked them with a *</p>
+                <aside class="notes">
+                    Some APIs not Standard...
+                </aside>
+            </section>
+            <section id="webapi_overview">
+                <h2>Categories</h2>
+
+                <p>
+                    Web APIs could be categorized
+                </p>
+
+                <ul class="fragment">
+                    <li>Communication</li>
+                    <li>Datamanagement</li>
+                    <li>Hardware access</li>
+                    <li class="fragment">"other"</li>
+                </ul>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Communication</li>
+                        <li>Datamanagement</li>
+                        <li>Hardware access</li>
+                        <li>"other"</li>
+                    </ul>
+                </aside>
+            </section>
+            <section id="webapi_communication">
+                <h2>Communication</h2>
+                <ul class="fragment inline">
+                    <li>Network Information API</li>
+                </ul>
+                <br/><br>
+                <ul class="fragment inline">
+                    <li>Bluetooth*</li>
+                    <li>Mobile Connection API*</li>
+                    <li>Network Stats API*</li>
+                    <li>TCP Socket API*</li>
+                    <li>Telephony*</li>
+                    <li>WebSMS*</li>
+                    <li>WiFi Information API*</li>
+                </ul>
+            </section>
+            <section id="webapi_Datamanagemnt">
+                <h2>Datamanagement</h2>
+                <ul class="fragment inline">
+                    <li>IndexedDB</li>
+                    <li>Contacts API</li>
+                </ul>
+                <br/><br>
+                <ul class="fragment inline">
+                    <li>FileHandle API*</li>
+                    <li>Device Storage API*</li>
+                    <li>Settings API*</li>
+                </ul>
+            </section>
+            <section id="webapi_hardware_access">
+                <h2>Hardware access</h2>
+                <ul class="fragment inline">
+                    <li>Light events</li>
+                    <li>Battery status</li>
+                    <li>Geolocation</li>
+                    <li>Pointer Lock</li>
+                    <li>Proximity</li>
+                    <li>Device orientation</li>
+                    <li>Screen orientation</li>
+                    <li>Vibration API</li>
+                </ul>
+                <br/><br>
+                <ul class="fragment inline">
+                    <li>WebFM API*</li>
+                    <li>Camera API*</li>
+                    <li>Power Management API*</li>
+                </ul>
+            </section>
+            <section id="webapi_other">
+                <h2>"Other"</h2>
+                <ul class="fragment inline">
+                    <li>Alarm API</li>
+                    <li>Simple Push API</li>
+                    <li>Web Notifications</li>
+                    <li>Idle API</li>
+                </ul>
+                <br/><br>
+                <ul class="fragment inline">
+                    <li>Apps API*</li>
+                    <li>Web Activities*</li>
+                    <li>WebPayment API*</li>
+                    <li>Browser API*</li>
+                    <li>Permissions API*</li>
+                    <li>Time/Clock API*</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section id="examples_please">
+                <h2>Examples?</h2>
+                <img class="fragment" width="" height="" src="images/emma_yes.gif" alt="">
+            </section>
+            <section id="examples_connection">
+                <h2>Network Connection</h2>
+                <p>Information about the system's connection</p>
+                <pre class="fragment"><code data-trim contenteditable>
+var connection = navigator.connection ||
+                 navigator.mozConnection ||
+                 navigator.webkitConnection;
+var type = connection.type;
+
+function updateConnectionStatus() {
+  console.log("Connection type is change from " + type + " to " + connection.type);
+  type = connection.type;
+}
+
+connection.addEventListener('typechange', updateConnectionStatus);
+                </code></pre>
+                <p class="fragment">Firefox 12+, Firefox Mobile, Firefox OS, Android 2.2+</p>
+            </section>
+            <section id="examples_indexedDB">
+                <h2>IndexedDB</h2>
+                <blockquote class="fragment" cite="">
+                    &ldquo;IndexedDB is an API for client-side storage of significant amounts of structured data
+                    and for high performance searches on this data using indexes. &rdquo;
+                </blockquote>
+                <p class="fragment">NoSQL DB for Browsers...</p>
+                <p class="fragment">Deserves an own talk... <span class="fragment">too complex for this one...</span></p>
+                <p class="fragment">Supported by: Every major Browser on Desktop and every major mobile browser ...</p>
+                <p class="fragment">... excepted: <span class="fragment"><b>Safari on iOS < 8</b></span> </p>
+            </section>
+            <section id="examples_notification">
+                <h2>Notification</h2>
+                <pre class="fragment"><code data-trim contenteditable>
+// At first, let's check if we have permission for notification
+// If not, let's ask for it
+if (Notification && Notification.permission !== "granted") {
+    Notification.requestPermission(function (status) {
+          if (Notification.permission !== status) {
+                Notification.permission = status;
+          }
+});
+}
+
+if (Notification && Notification.permission === "granted") {
+    var n = new Notification("Hi!");
+}
+                </code></pre>
+                <p class="fragment"><button id="notify">Notify me!</button></p>
+                <p class="fragment">
+                    Desktop: Chrome 5+, Firefox 4+, Opera 25, Safari 6+<br>
+                    Mobile: Firefox Mobile 4+, Firefox OS
+                </p>
+            </section>
+            <section id="examples_light_events">
+                <h2>Light Events</h2>
+                <p>Get current ambient light intensity</p>
+                <pre class="fragment"><code data-trim contenteditable>
+window.ondevicelight = function (event) {
+    // Read out the lux value
+    console.log(event.value);
+};
+                </code></pre>
+                <p class="fragment">Current lux: <span id="ambilight">0</span></p>
+                <p class="fragment">Desktop: Firefox 22+<br>
+                Mobile: Firefox Mobile</p>
+            </section>
+            <section id="examples_battery">
+                <h2>Battery Status</h2>
+                <p>Information about the system's battery charge level and lets you be notified by events that are sent when the battery level changes</p>
+                <pre class="fragment"><code data-trim contenteditable>
+var battery = navigator.battery ||
+              navigator.mozBattery ||
+              navigator.webkitBattery,
+    info = {
+        charging: battery.charging,
+        chargingTime: parseInt(battery.chargingTime / 60, 10),
+        dischargingTime: parseInt(battery.dischargingTime / 60, 10),
+        level: Math.round(battery.level * 100)
+    };
+
+function updateBatteryStatus() {
+    batterylevel.innerHTML = battery.level * 100 + " %";
+    batterystatus.innerHTML = battery.charging ? "" : "not";
+}
+
+battery.addEventListener("chargingchange", updateBatteryStatus);
+battery.addEventListener("levelchange", updateBatteryStatus);
+
+                </code></pre>
+                <p class="fragment">
+                    Battery: Level is <span id="batterylevel"></span> and it's <span id="batterystatus"></span> charging.
+                </p>
+                <p class="fragment">Desktop: Firefox 10+
+                Mobile: Firefox Mobile 10+</p>
+            </section>
+            <section id="examples_proximity">
+                <h2>Proximity Events</h2>
+                <p class="fragment">The proximity events are a handy way to know when a user is close to a device</p>
+                <pre class="fragment"><code data-trim contenteditable>
+window.addEventListener('userproximity', function(event) {
+    if (event.near) {
+        console.log('Phone probably on users ear...');
+    } else {
+        console.log('phone in your hand...');
+    }
+});
+                </code></pre>
+            </section>
+            <section id="examples_device_orientation">
+                <h2>Detecting device orientation</h2>
+                <p class="fragment">Detection orientation and motion events</p>
+                <pre class="fragment"><code data-trim contenteditable>
+window.addEventListener("deviceorientation", handleOrientation, true);
+
+function handleOrientation(event) {
+    var alpha    = event.alpha; // Z-Axis
+    var beta     = event.beta; // Y-Axis
+    var gamma    = event.gamma; // X-Axis
+
+    // Do stuff with the new orientation data
+}
+                </code></pre>
+                <pre class="fragment"><code data-trim contenteditable>
+window.addEventListener("devicemotion", handleMotion, true);
+
+function handleMotion(event) {
+    var x = event.accelerationIncludingGravity.x;
+    var y = event.accelerationIncludingGravity.y;
+    var z = event.accelerationIncludingGravity.z;
+    var r = event.rotationRate;
+}
+                </code></pre>
+                <p class="fragment">Information about the speed of changes for the device's position and orientation.</p>
+                <p class="fragment">Desktop: Chrome 7+, 3.6+<br>
+                Mobile: Android 3.0, Firefox Mobile 3.6+, Safari Mobile 4.2+</p>
+            </section>
+            <section id="examples_vibration">
+                <h2>Vibration API</h2>
+                <p class="fragment">Rumble in your pocket!</p>
+                <pre class="fragment"><code data-trim contenteditable>
+var pattern = [200, 100, 200, 200, 100],
+goodVibration = navigator.vibrate(pattern);
+                </code></pre>
+                <p class="fragment">Mobile: Android, Firefox Mobile 11+</p>
+            </section>
+            <section id="examples_screen_orientation">
+                <h2>Screen orientation</h2>
+                <p class="fragment">Listening orientation change</p>
+                <pre class="fragment"><code data-trim contenteditable>
+screen.addEventListener("orientationchange", function () {
+  console.log("The orientation of the screen is: " + screen.orientation);
+});
+                </code></pre>
+                <p class="fragment">Preventing orientation change</p>
+                <pre class="fragment"><code data-trim contenteditable>
+screen.lockOrientation('landscape');
+                </code></pre>
+                <p class="fragment">Support is complex: <i>This API is experimental and currently available on
+                    Firefox OS and Firefox for Android with a moz prefix, and for Internet Explorer on Windows 8.1
+                    and above  with a ms prefix.</i></p>
+            </section>
+            <section id="examples_pointerlock">
+                <h2>Pointer Lock</h2>
+                <p class="fragment">Request pointer lock on an element</p>
+                <pre class="fragment"><code data-trim contenteditable>
+canvas.requestPointerLock = canvas.requestPointerLock ||
+                            canvas.mozRequestPointerLock ||
+                            canvas.webkitRequestPointerLock;
+canvas.requestPointerLock();
+                </code></pre>
+                <p class="fragment">Listen for changes</p>
+                <pre class="fragment"><code data-trim contenteditable>
+document.addEventListener('pointerlockchange', lockChangeAlert, false);
+document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
+document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
+                </code></pre>
+                <p class="fragment">Exit pointer lock</p>
+                <pre class="fragment"><code data-trim contenteditable>
+document.exitPointerLock = document.exitPointerLock    ||
+                           document.mozExitPointerLock ||
+                           document.webkitExitPointerLock;
+
+// Attempt to unlock
+document.exitPointerLock();
+                </code></pre>
+                <p class="fragment">Desktop: Chrome, Firefox</p>
+            </section>
+            <section id="examples_visibility">
+                <h2>Page visibility</h2>
+                <p class="fragment">The Page Visibility API lets you know when a webpage is visible or in focus</p>
+                <pre class="fragment"><code data-trim contenteditable>
+if (document.hidden) {
+    // stop video etc.
+}
+                </code></pre>
+                <pre class="fragment"><code data-trim contenteditable>
+document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
+function handleVisibilityChange() {
+    if (document.hidden) {
+        // stop something. e.g. stop a video, audio etc...
+    } else {
+        // do something else ;) play video, audio... you got it?
+    }
+}
+                </code></pre>
+                <p class="fragment">Currently prefixed (moz, webkit, ms)</p>
+                <p class="fragment">Desktop: Chrome, Firefox 30+, Safari 7+, Opera 24+, IE10+<br>
+                    Mobile: Chrome Android, Android 4.4+, Firefox Mobile, Firefox OS</p>
+            </section>
+        </section>
+        <section id="more_fun">
+            <h2>*Yawn* Nice...</h2>
+            <img width="" height="" src="images/bored_pit.gif" alt="">
+            <p class="fragment">... but these examples are just....</p>
+            <p class="fragment">... examples </p>
+        </section>
+        <section>
+            <section id="real_examples">
+                <h2>OK</h2>
+                <p>
+                    Some live examples...
+                </p>
+            </section>
+            <section id="real_examples_2">
+                <h2>But first...</h2>
+                <p>
+                    ... some real world examples
+                </p>
+            </section>
+            <section id="real_bbc">
+                <h2>BBC News<br>Network Information API</h2>
+                <p class="fragment">Warns when cellular connection detected and video should be played</p>
+
+                <img class="fragment" width="" height="" src="images/web_bbc_cellular.png" alt="">
+            </section>
+            <section id="real_marketplace">
+                <h2>Firefox Marketplace<br>Network Information API</h2>
+                <p class="fragment">Paying via carrier billing - Cellular detected</p>
+                <img class="fragment" width="" height="400" src="images/web_firefox_market_advise_of_charge.png" alt="">
+            </section>
+            <section id="real_marketplace_2">
+                <h2>Firefox Marketplace 2<br>Network Information API</h2>
+                <p class="fragment">When WIFI is detected</p>
+                <img class="fragment" width="" height="400" src="images/web_firefox_market_phone_number_form.png" alt="">
+                <p class="fragment">Confirmation code via SMS</p>
+            </section>
+            <section id="real_geolocation">
+                <h2>Mozilla Reps - Events<br>Geolocation</h2>
+                <img class="fragment" width="" height="400" src="images/geolocation_reps_events.png" alt="">
+            </section>
+            <section id="real_examples_live">
+                <h2>OK</h2>
+                <p>
+                    NOW! Some live examples...
+                </p>
+            </section>
+            <section id="real_ambilight_webcolors">
+                <h2>Ambient light</h2>
+                <p class="fragment">
+                    <a target="_blank" href="examples/web/ambient/index.html">Ambient Light Demo</a>
+                </p>
+            </section>
+            <section id="real_notifications">
+                <h2>Notifications</h2>
+                <p class="fragment">
+                    <a target="_blank" href="examples/web/notification/index.html">Notifications Demo</a>
+                </p>
+            </section>
+            <section id="real_just4fun">
+                <h2>And of course: Have FUN!</h2>
+                <p class="fragment">
+                    <a target="_blank" href="examples/games/ambilight/index.html">Fun, fun, fun</a>
+                </p>
+            </section>
+            <section id="real_just4fun_install">
+                <h2>Install via AppInstall* API</h2>
+                <a href="http://casarock.github.io/ambilander/index.html">AppInstall</a>
+            </section>
+            <section id="real_just4fun_video">
+                <h2>And on a Device</h2>
+                <a href="https://www.youtube.com/watch?v=kqvBvIV8mCE">Video</a>
+            </section>
+
+        </section>
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+
+            <ul>
+                <li class="fragment">Standards are cool</li>
+                <li class="fragment">WebAPIs allow us to build cooler web apps</li>
+                <li class="fragment">WebAPIs are not a "mobile"-thingy</li>
+                <li class="fragment">The "Web" becomes (more) "native"</li>
+            </ul>
+        </section>
+        <section id="thankyou">
+            <h2>Thank you!</h2>
+            <p>
+                Carsten Sandtner<br>
+                <a href="http://www.twitter.com/casarock">@casarock</a><br><br>
+                Slides & Examples: <a href="http://casarock.github.io">casarock.github.io</a>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'night',
+        transition: 'default',
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+        ]
+    });
+
+    window.addEventListener('load', function () {
+
+        var notificationButton = document.getElementById('notify');
+        var ambilight = document.getElementById('ambilight');
+        var batterylevel = document.getElementById('batterylevel');
+        var batterystatus = document.getElementById('batterystatus');
+        var battery = navigator.battery ||
+                navigator.mozBattery ||
+                navigator.webkitBattery;
+
+        notificationButton.addEventListener('click', function() {
+            if (window.Notification && Notification.permission !== "granted") {
+                Notification.requestPermission(function (status) {
+                    if (Notification.permission !== status) {
+                        Notification.permission = status;
+                    }
+                });
+            } else if (window.Notification && Notification.permission === "granted") {
+                var n = new Notification("Hi code.talks!");
+            }
+
+
+        });
+
+        window.ondevicelight = function(event) {
+            // Read out the lux value
+            var lux = event.value;
+            ambilight.innerHTML = lux + "";
+        };
+
+        function updateBatteryStatus() {
+            batterylevel.innerHTML = battery.level * 100 + " %";
+            batterystatus.innerHTML = battery.charging ? "" : "not";
+        }
+
+        battery.addEventListener("chargingchange", updateBatteryStatus);
+        battery.addEventListener("levelchange", updateBatteryStatus);
+        updateBatteryStatus();
+
+    });
+
+</script>
+
+</body>
+</html>

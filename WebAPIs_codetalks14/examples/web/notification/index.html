@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Awesome, super, hyper Mail</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#" id="refresh">Refresh</a>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <div class="row-fluid">
+        <div class="col-md-3">
+            <ul class="nav nav-list nav-fixed-sidebar" id="maillist">
+                <li class="nav-header">Mails <span class="loader"><img src="ajax-loader.gif"> </span></li>
+                <li class="active"><a href="#">Rudi Sender<br>
+                    <small>My awesome Email</small> </a>
+                </li>
+                <li class="active"><a href="#">Max Mustrmann<br>
+                    <small>Contact me, please!</small> </a>
+                </li>
+                <li class="active"><a href="#">Hermine Granger<br>
+                    <small>Need a tent. Could you help?</small> </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            ... here be content ...
+        </div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+        if (window.Notification && Notification.permission !== "granted") {
+            Notification.requestPermission(function (status) {
+                if (Notification.permission !== status) {
+                    Notification.permission = status;
+                }
+            });
+        }
+
+        $('#refresh').on('click', function() {
+            $('.loader').show();
+            window.setTimeout(insertNewMail, 5000);
+        });
+
+        function insertNewMail() {
+            var insertHtml = '<li class="active"><a href="#">Peter Example<br><small>Could you call me, please?</small> </a></li>';
+            $('#maillist').append(insertHtml);
+            $('.loader').hide();
+
+            var visibleProperty = getHiddenProp();
+            if (document[visibleProperty]) {
+                showNotification();
+            }
+
+        }
+
+        function showNotification() {
+            if (window.Notification && Notification.permission === "granted") {
+                var n = new Notification("You've got Mail!");
+            }
+        }
+
+        function getHiddenProp(){
+            var prefixes = ['webkit','moz','ms','o'];
+
+            // if 'hidden' is natively supported just return it
+            if ('hidden' in document) return 'hidden';
+
+            // otherwise loop over all the known prefixes until we find one
+            for (var i = 0; i < prefixes.length; i++){
+                if ((prefixes[i] + 'Hidden') in document)
+                    return prefixes[i] + 'Hidden';
+            }
+
+            // otherwise it's not supported
+            return null;
+        }
+    });
+
+</script>
+</body>
+</html>
