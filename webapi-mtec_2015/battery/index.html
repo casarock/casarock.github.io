@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Battery Demo</title>
+    </head>
+    <body>
+
+        <div id="batterylevel"></div>
+        <div id="batterystatus"></div>
+
+        <script type="text/javascript" charset="utf-8">
+            var batterylevel = document.getElementById('batterylevel');
+            var batterystatus = document.getElementById('batterystatus');
+            var battery = navigator.battery ||
+                navigator.mozBattery ||
+                navigator.webkitBattery;
+
+            function updateBatteryStatus() {
+                batterylevel.innerHTML = battery.level * 100 + " %";
+                batterystatus.innerHTML = (battery.charging ? "" : "not ") + "charging" ;
+            }
+
+            battery.addEventListener("chargingchange", updateBatteryStatus);
+            battery.addEventListener("levelchange", updateBatteryStatus);
+            updateBatteryStatus();
+
+        </script>
+    </body>
+</html>

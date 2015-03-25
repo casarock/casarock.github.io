@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Simple Notifications</title>
+    </head>
+    <body>
+        <button id="notify">Notify me!</button>
+        <script charset="utf-8">
+            var notificationButton = document.getElementById('notify');
+
+            notificationButton.addEventListener('click', function() {
+                if (window.Notification && Notification.permission !== "granted") {
+                    Notification.requestPermission(function (status) {
+                        if (Notification.permission !== status) {
+                            Notification.permission = status;
+                        }
+                    });
+                } else if (window.Notification && Notification.permission === "granted") {
+                    var n = new Notification("Hi Munich!!");
+                }
+            });
+        </script>
+    </body>
+</html>

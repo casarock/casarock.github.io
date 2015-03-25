@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Simple ambilight</title>
+    </head>
+    <body>
+        <div id="ambilight">Wait...</div>
+        <script charset="utf-8">
+            var ambilight = document.getElementById('ambilight');
+            window.ondevicelight = function(event) {
+                // Read out the lux value
+                var lux = event.value;
+                ambilight.innerHTML = lux + "";
+            };
+
+        </script>
+    </body>
+</html>

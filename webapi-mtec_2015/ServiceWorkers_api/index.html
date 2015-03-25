@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Service Workers</title>
+        <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <div id="name">
+            <h1>This is my mainpage!</h1>
+            <p><a href="test.html">Go to test-page!</a></p>
+            <p><a href="timer.html">Go to Timer</a></p>
+        </div>
+        <div>
+            <img src="images/600px-JavaScript-logo.png" width="256" height="" alt="" />
+        </div>
+        <div class="status">
+            <p id="statusmessage"></p>
+        </div>
+        </div>
+        <div class="status">
+            <p id="weather"></p>
+        </div>
+        <script type="text/javascript">
+        (function() {
+            setWeatherStatus("Getting weather data...");
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function(registration) {
+                    setStatus("registered! Scope: " + registration.scope.toString());
+                }).catch(function(error) {
+                    setStatus(error.toString());
+                });
+            } else {
+                setStatus("unavailable");
+            }
+
+            function setStatus(msg) {
+                document.querySelector("#statusmessage").innerHTML = msg + "";
+            }
+
+            function setWeatherStatus(msg) {
+                document.querySelector("#weather").innerHTML = msg + "";
+            }
+
+            window.setTimeout(function() {
+                var r = new XMLHttpRequest();
+                r.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=Mainz,de&units=metric", true);
+                r.onreadystatechange = function () {
+                    if (r.readyState != 4 || r.status != 200) return;
+                    var weatherData = JSON.parse(r.responseText),
+                        sky = weatherData.weather[0].description || "Error",
+                        temp = weatherData.main.temp || "666",
+                        city = weatherData.name;
+
+                    setWeatherStatus("Today in " + city + ": " + sky + ". Temperature: " + temp + "°C");
+
+                };
+
+                r.send();
+
+            }, 1000);
+        })();
+
+        </script>
+    </body>
+</html>
