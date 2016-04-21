@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+    <title>Hello, World!</title>
+    <script src="aframe.min.js"></script>
+  </head>
+  <body>
+      <a-scene>
+
+          <a-box id="mybox" color="#6173F4" width="1" height="1"
+                 depth="1" position="0 0 -5" rotation="0 0 0" scale="1 1 1">
+             <a-animation attribute="rotation" repeat="indefinite" to="0 180 0"></a-animation>
+             <a-event name="mouseenter" color="#ff0000"></a-event>
+             <a-event name="mouseleave" color="#6173F4"></a-event>
+          </a-box>
+          <a-camera position="0 0 0">
+              <a-cursor color="#0000ff">
+          </a-camera>
+          <a-light type="directional" color="#FFF" intensity="0.5" position="1 1 3"></a-light>
+          <a-light type="ambient" color="#FFF"></a-light>
+          <a-sky color="#bbb"></a-sky>
+      </a-scene>
+      <script>
+
+        var scene = document.querySelector('a-scene');
+        var cylinder = document.createElement('a-cylinder');
+
+        cylinder.setAttribute('color', '#0000cc');
+        cylinder.setAttribute('height', '2');
+        cylinder.setAttribute('radius', '0.75');
+        cylinder.setAttribute('position', '3 1 -5');
+
+        cylinder.addEventListener('mouseenter', function () {
+            cylinder.setAttribute('material', {color: '#ff0000'});
+        });
+
+        cylinder.addEventListener('mouseleave', function() {
+            cylinder.setAttribute('material', {color: '#0000cc'});
+        });
+
+        scene.appendChild(cylinder);
+
+        var t = 0;
+        function render() {
+            t += 0.01;
+            requestAnimationFrame(render);
+            cylinder.setAttribute('scale', '1 '+(Math.sin(t*2)+1)+' 1');
+        }
+
+        render();
+</script>
+  </body>
+</html>

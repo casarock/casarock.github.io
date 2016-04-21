@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! • A-Frame</title>
+    <meta name="description" content="Hello, World! • A-Frame">
+    <script src="aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+        <a-box id="mybox" color="#6173F4" width="1" height="1" depth="1" position="1 1 1" rotation="0 0 0" scale="1 1 1">
+           <a-animation attribute="rotation" repeat="indefinite" to="0 180 0"></a-animation>
+           <a-animation attribute="position" from="1 1 1" to="0 1 -8"></a-animation>
+        </a-box>
+
+        <a-light type="point" color="#fff" position="0 5 0"></a-light>
+
+        <a-camera position="0 0 0">
+            <a-cursor color="#0000ff">
+        </a-camera>
+        <a-sky color="#aaaaff"></a-sky>
+    </a-scene>
+
+    <script>
+    (function(){
+        var box = document.querySelector('#mybox');
+        box.addEventListener('mouseenter', function () {
+            box.setAttribute('color', '#ff0000');
+        });
+
+        box.addEventListener('mouseleave', function() {
+            box.setAttribute('color', '#6173F4');
+        });
+    })();
+    </script>
+  </body>
+</html>
