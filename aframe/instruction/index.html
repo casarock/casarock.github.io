@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! • A-Frame</title>
+    <meta name="description" content="Your car!">
+    <script src="aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+        <a-assets>
+             <img id="speed_info" src="assets/speed.png">
+             <img id="rpm_info" src="assets/rpm.png">
+             <img id="navi_info" src="assets/navi.png">
+             <img id="seat_info" src="assets/seat.png">
+        </a-assets>
+        <a-entity id="rpm"
+                  geometry="primitive: box"
+                  material="src: #rpm_info"
+                  position="1 1 -5"
+                  scale="0.25 0.25 0.25"
+                  look-at="[camera]">
+
+            <a-animation begin="mouseenter" attribute="scale"
+                         dur="750"
+                         fill="both"
+                         to="3 3 3">
+            </a-animation>
+            <a-animation begin="mouseleave" attribute="scale"
+                         dur="750"
+                         fill="both"
+                         to="0.25 0.25 0.25">
+            </a-animation>
+        </a-entity>
+
+        <a-entity id="speed"
+                  geometry="primitive: plane"
+                  material="src: #speed_info"
+                  position="-0.75 1 -5"
+                  scale="0.25 0.25 0.25"
+                  look-at="[camera]">
+                  <a-animation begin="mouseenter" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="3.3 3.3 3.3">
+                  </a-animation>
+                  <a-animation begin="mouseleave" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="0.25 0.25 0.25">
+                  </a-animation>
+        </a-entity>
+
+        <a-entity id="navi"
+                  geometry="primitive: plane"
+                  material="src: #navi_info"
+                  position="4 0.75 -5"
+                  scale="0.2 0.2 0.2"
+                  look-at="[camera]">
+                  <a-animation begin="mouseenter" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="4.5 4.5 4.5">
+                  </a-animation>
+                  <a-animation begin="mouseleave" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="0.25 0.25 0.25">
+                  </a-animation>
+        </a-entity>
+
+        <a-entity id="seat"
+                  geometry="primitive: plane"
+                  material="src: #seat_info"
+                  position="-3 -0.25 -5"
+                  scale="0.25 0.25 0.25"
+                  look-at="[camera]">
+                  <a-animation begin="mouseenter" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="4.5 4.5 4.5">
+                  </a-animation>
+                  <a-animation begin="mouseleave" attribute="scale"
+                               dur="750"
+                               fill="both"
+                               to="0.25 0.25 0.25">
+                  </a-animation>
+        </a-entity>
+
+        <a-camera position="0 0 0">
+            <a-entity position="0 0 -1"
+                      geometry="primitive: ring; radiusOuter: 0.01; radiusInner: 0.001;"
+                      material="color: cyan; shader: flat"
+                      cursor="maxDistance: 30">
+
+            </a-entity>
+        </a-camera>
+
+        <a-sky src="assets/car_3.jpg" rotation="0 -90 0"></a-sky>
+    </a-scene>
+</body>
