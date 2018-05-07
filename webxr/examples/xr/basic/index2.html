@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello, WebVR! - A-Frame</title>
+    <meta name="description" content="Hello, WebXR! - A-Frame">
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://webxrexperiments.com, expires = 2018-05-01 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2018-10-01" content="ArKeZe0EK5eAEXO1K+Uj07h/yA2ylN8xwt+12LVV8ReELbePVTiSBRd4GYOnKzHpFktLh/nkPafQFDuvMhVX4goAAABseyJvcmlnaW4iOiJodHRwczovL3dlYnhyZXhwZXJpbWVudHMuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUyNTE3ODYwNywiaXNTdWJkb21haW4iOnRydWV9">
+    <script src='../../../vendor/aframe-master.js'></script>
+    <script src='../../../vendor/three.xr.js'></script>
+    <script src='../../../dist/aframe-xr.js'></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="dioramaSource" src="../../assets/webxr-town.gltf">
+        </a-assets>
+        <a-gltf-model id="diorama" src="#dioramaSource" position="0 0 -3" scale="2 2 2" shadow xr="magicWindow: true"></a-gltf-model>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow xr="ar: false; vr: false;"></a-plane>
+        <a-sky color="#ECECEC" side="back" xr="ar: false"></a-sky>
+    </a-scene>
+</body>
+
+</html>
